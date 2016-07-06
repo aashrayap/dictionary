@@ -5,6 +5,6 @@ class DictionaryLoader
   attr_accessor :file
 
   def openfile(filename,mode)
-  @file=File.open(filename,mode)
+  @file=File.open(filename)
   end
 end
