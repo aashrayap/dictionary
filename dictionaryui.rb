@@ -1,16 +1,17 @@
 class DictionaryUI
   def initialize
-    file=DictionaryLoader.new
+    @loader=DictionaryLoader.new
+    @file
   end
 
   def loop
-    prompt
+    @file=prompt
   end
 
   def prompt
     puts "Where is your dictionary?"
-    path=gets.chomp
-    file.open(path,"r+")
+    # path=gets.chomp
+    @loader.openfile('5desk.txt',"r+")
   end
 
 end
