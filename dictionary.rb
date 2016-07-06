@@ -2,7 +2,6 @@ require './loader.rb'
 
 class Dictionary
   def initialize
-    @loader=DictionaryLoader.new
     @alphabet =[*("a".."z")]
     @dictionary
   end
@@ -19,7 +18,7 @@ class Dictionary
     puts "Where is your dictionary?"
     @path=gets.chomp
     if File.exist?(@path)
-      @dictionary=@loader.openfile(@path,"r+")
+      @dictionary=File.readlines(@path)
       puts "Your Dictionary successfully loaded"
       break
     end
@@ -31,20 +30,21 @@ class Dictionary
     numberofwords=word_count
     puts "Your dictionary contains #{numberofwords} words."
     word_frequency_by_letter
-
   end
 
   def word_frequency_by_letter
     @alphabet.each do |letter|
-      regex= /^#{letter}/
-      @result=@dictionary.scan(regex)
-      puts "#{result.size} words start with #{letter}"
+      result=[]
+      @dictionary.each do |word|
+        regex= /^#{letter}.*$/
+        result<<word if word.match(regex)
+      end
+        puts "#{result.size} words start with #{letter}"
     end
   end
 
   def word_count
-    arr=File.readlines(@path)
-    num_words=arr.size
+    num_words=@dictionary.size
   end
 end
 
