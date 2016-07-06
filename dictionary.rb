@@ -4,6 +4,7 @@ class Dictionary
   def initialize
     @loader=DictionaryLoader.new
     @alphabet =[*("a".."z")]
+    @dictionary
   end
 
   attr_accessor :dictionary, :path
@@ -19,11 +20,10 @@ class Dictionary
     @path=gets.chomp
     if File.exist?(@path)
       @dictionary=@loader.openfile(@path,"r+")
-      "Your Dictionary successfully loaded"
+      puts "Your Dictionary successfully loaded"
       break
-    else
-      "Invlalid path, try again!"
     end
+      puts "Invlalid path, try again!"
     end
   end
 
